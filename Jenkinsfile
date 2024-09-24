@@ -65,7 +65,7 @@ pipeline {
                 }
             }
         }
-        }
+        
         stage('Integration Testing') {
             steps {
                 echo "Performing Integration testing"
