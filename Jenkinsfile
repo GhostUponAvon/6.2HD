@@ -81,7 +81,7 @@ pipeline {
     stage('Monitoring') {
             steps {
                 echo "Performing Monitoring"
-                sh "echo $(./app/target/release/app 34 56) > logs/6.2HD-build-${TAG}.txt"
+                sh '''echo $(./app/target/release/app 34 56) > logs/6.2HD-build-\$TAG.txt'''
             }
             post {
                 success {
