@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         RUST="/var/lib/jenkins/.cargo/bin"
-        TOKEN=$RELEASE_TOKEN
+        TOKEN="$RELEASE_TOKEN"
         TAG="0.1.$BUILD_NUMBER"
     }
 
