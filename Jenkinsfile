@@ -66,22 +66,7 @@ pipeline {
             }
         }
         
-        stage('Integration Testing') {
-            steps {
-                echo "Performing Integration testing"
-                sleep 10
-            }
-            post {
-                success {
-                    echo "Integration testing executed successfully"
-                    emailext attachLog: true, body: 'The integration testing was: successfully', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Integration'
-                }
-                failure {
-                    echo "Integration testing failed"
-                    emailext attachLog: true, body: 'The integration testing has: failed', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Integration'
-                }
-            }
-        }
+        
         stage('Deploy to Production') {
             steps {
                 echo "Pushing to Github Release channel"
@@ -92,6 +77,23 @@ pipeline {
         }
         
     }
+
+    stage('Monitoring') {
+            steps {
+                echo "Performing Monitoring"
+                sh "echo $(./app/target/release/app 34 56) > logs/6.2HD-build-${TAG}.txt"
+            }
+            post {
+                success {
+                    echo "Monitoring executed successfully"
+                    emailext attachLog: true, body: 'Monitoring executed: successfully', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Monitoring'
+                }
+                failure {
+                    echo "Monitoring indicates a runtime error"
+                    emailext attachLog: true, body: 'Monitoring has: failed', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Monitoring'
+                }
+            }
+        }
     post {
         always {
             echo "Pipeline Finished"
