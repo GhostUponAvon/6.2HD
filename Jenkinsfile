@@ -76,7 +76,7 @@ pipeline {
             }
         }
         
-    }
+    
 
     stage('Monitoring') {
             steps {
@@ -94,6 +94,7 @@ pipeline {
                 }
             }
         }
+    }
     post {
         always {
             echo "Pipeline Finished"
