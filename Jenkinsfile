@@ -86,7 +86,7 @@ pipeline {
             steps {
                 echo "Pushing to Github Release channel"
                 dir("app/target/release") {
-                    sh '''release=$(curl -XPOST -H "Authorization:token $TOKEN" --data "{\"tag_name\": \"$TAG\", \"target_commitish\": \"master\", \"name\": \"BUILD: $TAG\", \"body\": \"The rust app has been built and the resulting binary is available below for download\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/GhostUponAvon/6.2HD/releases) && id=$(echo "\$release" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g') && curl -XPOST -H "Authorization:token $TOKEN" -H "Content-Type:application/octet-stream" --data-binary @app https://uploads.github.com/repos/GhostUponAvon/release-with-curl/releases/\$id/assets?name=app'''
+                    sh '''release=$(curl -XPOST -H "Authorization:token $TOKEN" --data "{\"tag_name\": \"$TAG\", \"target_commitish\": \"master\", \"name\": \"BUILD: $TAG\", \"body\": \"The rust app has been built and the resulting binary is available below for download\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/GhostUponAvon/6.2HD/releases) && id=$(echo "\$release" | sed -n -e 's/"id":\\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g') && curl -XPOST -H "Authorization:token $TOKEN" -H "Content-Type:application/octet-stream" --data-binary @app https://uploads.github.com/repos/GhostUponAvon/release-with-curl/releases/\$id/assets?name=app'''
                 }
             }
         }
