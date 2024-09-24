@@ -32,17 +32,17 @@ pipeline {
             post {
                 success {
                     echo "Testing executed successfully"
-                    emailext attachLog: true, body: 'The testing was: successfully', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Testing'
+                    emailext attachLog: true, body: 'The testing executed: successfully', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Testing'
                 }
                 failure {
                     echo "Testing failed"
-                    emailext attachLog: true, body: 'The testing has: failed', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Testing'
+                    emailext attachLog: true, body: 'The testing executed: unsuccessfully', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Testing'
                 }
             }
         }
         stage('Code Quality Check') {
             steps {
-                echo "Running code quality checks"
+                echo "Running code quality and security checks"
                 dir("app") {
                     sh "$RUST/cargo clippy"
                     
@@ -90,7 +90,7 @@ pipeline {
                 }
                 failure {
                     echo "Monitoring indicates a runtime error"
-                    emailext attachLog: true, body: 'Monitoring has: failed', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Monitoring'
+                    emailext attachLog: true, body: 'Monitoring executed: unsuccessfully', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status: Monitoring'
                 }
             }
         }
@@ -101,11 +101,11 @@ pipeline {
         }
         success {
             echo "Pipeline executed successfully"
-            emailext attachLog: true, body: 'The pipeline has built: successfully', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status'
+            emailext attachLog: true, body: 'The pipeline has completed: successfully', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status'
         }
         failure {
             echo "Pipeline execution failed"
-            emailext attachLog: true, body: 'The pipeline build has: failed', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status'
+            emailext attachLog: true, body: 'The pipeline has completed: unsuccessfully', to:'mikehodgetheboss@gmail.com', subject: 'Pipeline build status'
         }
     }
 }
