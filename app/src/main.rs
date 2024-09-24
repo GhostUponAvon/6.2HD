@@ -9,7 +9,7 @@ fn main() {
 
     let sum: i32 = add(a, b);
 
-    println!("The sum is equal to: {}", sum);
+    println!("The sum is: {}", sum);
 }
 
 fn add(a: i32, b: i32) -> i32 {
